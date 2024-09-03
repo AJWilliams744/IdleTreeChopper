@@ -23,5 +23,7 @@ public:
 	class UTextBlock* coinText;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	class UTextBlock* treeText;
+	class UTextBlock* woodText;
+
+	void UpdateInfo(int coins, int trees);
 };

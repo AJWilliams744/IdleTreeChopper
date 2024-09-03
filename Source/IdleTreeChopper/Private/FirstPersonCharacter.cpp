@@ -29,8 +29,9 @@ AFirstPersonCharacter::AFirstPersonCharacter()
 void AFirstPersonCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	Cast<AMyHUD>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHUD())->gameUI->coinText->SetText(
-		FText::FromString("Coins"));
+
+	Hud = Cast<AMyHUD>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHUD());
+	GameMode = Cast<AIdleChopperMode>(GetWorld()->GetAuthGameMode());
 }
 
 // Called every frame
@@ -58,9 +59,12 @@ void AFirstPersonCharacter::Tick(float DeltaTime)
 			if (interact)
 			{
 				interact->Hit();
+				GameMode->coins++;
 			}
 		}
 	}
+
+	Hud->gameUI->UpdateInfo(GameMode->coins, GameMode->wood);
 }
 
 // Called to bind functionality to input

@@ -3,6 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "IdleChopperMode.h"
+#include "MyHUD.h"
 #include "GameFramework/Character.h"
 #include "FirstPersonCharacter.generated.h"
 
@@ -49,4 +51,7 @@ private:
 	float forwardSpeed;
 	UCharacterMovementComponent* MovementComponent;
 	bool AttackHeld;
+
+	AIdleChopperMode* GameMode;
+	AMyHUD* Hud;
 };
