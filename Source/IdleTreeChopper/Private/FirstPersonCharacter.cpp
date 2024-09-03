@@ -4,8 +4,12 @@
 #include "FirstPersonCharacter.h"
 
 #include "InteractInterface.h"
+#include "MyHUD.h"
+#include "UIWidget.h"
 #include "Camera/CameraComponent.h"
+#include "Components/TextBlock.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AFirstPersonCharacter::AFirstPersonCharacter()
@@ -25,6 +29,8 @@ AFirstPersonCharacter::AFirstPersonCharacter()
 void AFirstPersonCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+	Cast<AMyHUD>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHUD())->gameUI->coinText->SetText(
+		FText::FromString("Coins"));
 }
 
 // Called every frame
