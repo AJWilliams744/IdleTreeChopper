@@ -3,6 +3,7 @@
 
 #include "FirstPersonCharacter.h"
 
+#include "InteractInterface.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
@@ -30,6 +31,30 @@ void AFirstPersonCharacter::BeginPlay()
 void AFirstPersonCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (AttackHeld)
+	{
+		FHitResult Hit;
+
+		FVector TraceStart = Camera->GetComponentLocation();
+		FVector TraceEnd = TraceStart + Camera->GetForwardVector() * 150.0f;
+
+		FCollisionQueryParams QueryParams;
+		QueryParams.AddIgnoredActor(this);
+
+		GetWorld()->LineTraceSingleByChannel(Hit, TraceStart, TraceEnd, TraceChannelProperty, QueryParams);
+
+		AActor* HitActor = Hit.GetActor();
+
+		if (Hit.bBlockingHit && IsValid(HitActor))
+		{
+			IInteractInterface* interact = Cast<IInteractInterface>(HitActor);
+			if (interact)
+			{
+				interact->Hit();
+			}
+		}
+	}
 }
 
 // Called to bind functionality to input
@@ -39,6 +64,9 @@ void AFirstPersonCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AFirstPersonCharacter::Jump);
 	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &AFirstPersonCharacter::SprintOn);
 	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &AFirstPersonCharacter::SprintOff);
+
+	PlayerInputComponent->BindAction("Attack", IE_Pressed, this, &AFirstPersonCharacter::AttackOn);
+	PlayerInputComponent->BindAction("Attack", IE_Released, this, &AFirstPersonCharacter::AttackOff);
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &AFirstPersonCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AFirstPersonCharacter::MoveRight);
@@ -77,4 +105,14 @@ void AFirstPersonCharacter::SprintOn()
 void AFirstPersonCharacter::SprintOff()
 {
 	MovementComponent->MaxWalkSpeed = forwardSpeed;
+}
+
+void AFirstPersonCharacter::AttackOn()
+{
+	AttackHeld = true;
+}
+
+void AFirstPersonCharacter::AttackOff()
+{
+	AttackHeld = false;
 }

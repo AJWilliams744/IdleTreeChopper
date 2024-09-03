@@ -4,11 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "InteractInterface.h"
+#include "Components/BoxComponent.h"
 #include "GameFramework/Actor.h"
 #include "Tree.generated.h"
 
 UCLASS()
-class IDLETREECHOPPER_API ATree : public AActor
+class IDLETREECHOPPER_API ATree : public AActor, public IInteractInterface
 {
 	GENERATED_BODY()
 
@@ -25,5 +26,10 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere)
-	class UStaticMeshComponent* staticMesh;
+	class UStaticMeshComponent* StaticMesh;
+
+	UPROPERTY(EditAnywhere)
+	class UBoxComponent* Box;
+
+	virtual void Hit() override;
 };

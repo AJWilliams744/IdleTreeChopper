@@ -9,8 +9,13 @@ ATree::ATree()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	staticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
-	staticMesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
+	StaticMesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+
+	Box = CreateDefaultSubobject<UBoxComponent>(FName("Box"));
+	Box->SetBoxExtent(FVector(74.0f, 125.0f, 100.0f));
+	Box->SetupAttachment(StaticMesh);
+	Box->SetRelativeLocation(FVector(0.0f, 0.0f, -50.0f));
 }
 
 // Called when the game starts or when spawned
@@ -23,4 +28,9 @@ void ATree::BeginPlay()
 void ATree::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
+
+void ATree::Hit()
+{
+	UE_LOG(LogTemp, Warning, TEXT("New Hit"));
 }

@@ -26,6 +26,9 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UPROPERTY(EditAnywhere, Category="Collision", BlueprintReadWrite)
+	TEnumAsByte<ECollisionChannel> TraceChannelProperty = ECC_Pawn;
+
 protected:
 	UPROPERTY(EditAnywhere)
 	class UCameraComponent* Camera;
@@ -39,7 +42,11 @@ protected:
 	void SprintOn();
 	void SprintOff();
 
+	void AttackOn();
+	void AttackOff();
+
 private:
 	float forwardSpeed;
 	UCharacterMovementComponent* MovementComponent;
+	bool AttackHeld;
 };
