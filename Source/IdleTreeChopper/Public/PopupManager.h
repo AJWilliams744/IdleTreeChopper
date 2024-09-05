@@ -16,10 +16,14 @@ public:
 	~PopupManager();
 
 	void ShowPopup(TSubclassOf<UPopup> PopupClass);
+	void ClosePopup();
 
 	static PopupManager* Instance;
 
 private:
 	AMyHUD* Hud;
 	bool showingPopup = false;
+	UPopup* currentPopup = nullptr;
+
+	void LockUserCameraAndCursor(bool value, APlayerController* PlayerController);
 };

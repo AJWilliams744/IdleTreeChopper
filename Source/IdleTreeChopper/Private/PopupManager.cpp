@@ -18,14 +18,31 @@ PopupManager::~PopupManager()
 {
 }
 
+void PopupManager::ClosePopup()
+{
+	if (!showingPopup || !currentPopup) return;
+	showingPopup = false;
+
+	currentPopup->RemoveFromParent();
+
+	LockUserCameraAndCursor(true, UGameplayStatics::GetPlayerController(Hud->GetWorld(), 0));
+}
+
 
 void PopupManager::ShowPopup(TSubclassOf<UPopup> PopupClass)
 {
 	if (showingPopup) return;
 	showingPopup = true;
 	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(Hud->GetWorld(), 0);
-	UPopup* Popup = CreateWidget<UPopup>(PlayerController, PopupClass);
+	currentPopup = CreateWidget<UPopup>(PlayerController, PopupClass);
 
+	currentPopup->AddToViewport(9999); // Z-order, this just makes it render on the very top.
+
+	LockUserCameraAndCursor(true, PlayerController);
+}
+
+void PopupManager::LockUserCameraAndCursor(bool value, APlayerController* PlayerController)
+{
 	FInputModeGameAndUI Mode;
 	Mode.SetLockMouseToViewportBehavior(EMouseLockMode::LockAlways);
 	Mode.SetHideCursorDuringCapture(false);
@@ -39,8 +56,4 @@ void PopupManager::ShowPopup(TSubclassOf<UPopup> PopupClass)
 		PlayerController->SetIgnoreLookInput(true); // Ignore camera movements
 		PlayerController->SetIgnoreMoveInput(true); // Ignore movement inputs
 	}
-
-	Popup->AddToViewport(9999); // Z-order, this just makes it render on the very top.
-
-	UE_LOG(LogTemp, Warning, TEXT("Popup showing"));
 }
