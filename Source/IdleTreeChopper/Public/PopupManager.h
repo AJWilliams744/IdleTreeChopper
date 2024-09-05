@@ -21,5 +21,5 @@ public:
 
 private:
 	AMyHUD* Hud;
-	bool showingPopup;
+	bool showingPopup = false;
 };

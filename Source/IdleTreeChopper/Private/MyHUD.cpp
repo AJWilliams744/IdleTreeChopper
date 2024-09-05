@@ -4,6 +4,7 @@
 #include "MyHUD.h"
 
 #include "IdleChopperMode.h"
+#include "PopupManager.h"
 
 void AMyHUD::Tick(float DeltaTime)
 {
@@ -21,5 +22,5 @@ void AMyHUD::BeginPlay()
 
 void AMyHUD::CreatePopupManager()
 {
-	//MyPopupManager = new PopupManager(this);
+	MyPopupManager = new PopupManager(this);
 }
