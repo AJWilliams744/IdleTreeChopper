@@ -5,7 +5,7 @@
 
 // Add default functionality here for any IInteractInterface functions that are not pure virtual.
 
-void IInteractInterface::Hit()
+
+void IInteractInterface::Interact(AFirstPersonCharacter* character)
 {
-	UE_LOG(LogTemp, Warning, TEXT("InteractInterface::Hit"));
 }

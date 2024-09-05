@@ -3,6 +3,8 @@
 
 #include "Tree.h"
 
+#include "Kismet/GameplayStatics.h"
+
 // Sets default values
 ATree::ATree()
 {
@@ -30,7 +32,15 @@ void ATree::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void ATree::Hit()
+void ATree::Hit(AFirstPersonCharacter* Character)
 {
-	UE_LOG(LogTemp, Warning, TEXT("New Hit"));
+	float deltaTime = UGameplayStatics::GetWorldDeltaSeconds(this);
+
+	Health -= deltaTime;
+
+	if (Health <= 0)
+	{
+		Character->GameMode->wood++;
+		Health = MaxHealth;
+	}
 }

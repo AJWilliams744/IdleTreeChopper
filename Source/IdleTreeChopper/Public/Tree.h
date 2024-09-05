@@ -3,13 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "IDamage.h"
 #include "InteractInterface.h"
 #include "Components/BoxComponent.h"
 #include "GameFramework/Actor.h"
 #include "Tree.generated.h"
 
 UCLASS()
-class IDLETREECHOPPER_API ATree : public AActor, public IInteractInterface
+class IDLETREECHOPPER_API ATree : public AActor, public IIDamage
 {
 	GENERATED_BODY()
 
@@ -31,5 +32,11 @@ public:
 	UPROPERTY(EditAnywhere)
 	class UBoxComponent* Box;
 
-	virtual void Hit() override;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float MaxHealth = 2;
+
+	virtual void Hit(AFirstPersonCharacter* Character) override;
+
+private:
+	float Health;
 };

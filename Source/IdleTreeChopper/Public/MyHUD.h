@@ -18,4 +18,11 @@ class IDLETREECHOPPER_API AMyHUD : public AHUD
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UUIWidget* gameUI;
+
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+	virtual void BeginPlay() override;
+
+private:
+	AIdleChopperMode* GameMode;
 };

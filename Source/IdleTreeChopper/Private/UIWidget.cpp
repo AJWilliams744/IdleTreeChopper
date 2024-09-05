@@ -5,8 +5,8 @@
 
 #include "Components/TextBlock.h"
 
-void UUIWidget::UpdateInfo(int coins, int wood)
+void UUIWidget::UpdateInfo(AIdleChopperMode* GameMode)
 {
-	coinText->SetText(FText::AsNumber(coins));
-	woodText->SetText(FText::AsNumber(wood));
+	coinText->SetText(FText::AsNumber(GameMode->coins));
+	woodText->SetText(FText::AsNumber(GameMode->wood));
 }

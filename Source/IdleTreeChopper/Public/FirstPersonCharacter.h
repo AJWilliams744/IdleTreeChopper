@@ -31,6 +31,8 @@ public:
 	UPROPERTY(EditAnywhere, Category="Collision", BlueprintReadWrite)
 	TEnumAsByte<ECollisionChannel> TraceChannelProperty = ECC_Pawn;
 
+	AIdleChopperMode* GameMode;
+
 protected:
 	UPROPERTY(EditAnywhere)
 	class UCameraComponent* Camera;
@@ -52,6 +54,5 @@ private:
 	UCharacterMovementComponent* MovementComponent;
 	bool AttackHeld;
 
-	AIdleChopperMode* GameMode;
 	AMyHUD* Hud;
 };

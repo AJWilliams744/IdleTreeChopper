@@ -3,6 +3,7 @@
 
 #include "FirstPersonCharacter.h"
 
+#include "IDamage.h"
 #include "InteractInterface.h"
 #include "MyHUD.h"
 #include "UIWidget.h"
@@ -55,16 +56,12 @@ void AFirstPersonCharacter::Tick(float DeltaTime)
 
 		if (Hit.bBlockingHit && IsValid(HitActor))
 		{
-			IInteractInterface* interact = Cast<IInteractInterface>(HitActor);
-			if (interact)
+			if (IIDamage* damage = Cast<IIDamage>(HitActor))
 			{
-				interact->Hit();
-				GameMode->coins++;
+				damage->Hit(this);
 			}
 		}
 	}
-
-	Hud->gameUI->UpdateInfo(GameMode->coins, GameMode->wood);
 }
 
 // Called to bind functionality to input

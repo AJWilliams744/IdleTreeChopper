@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "IdleChopperMode.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Image.h"
 #include "UIWidget.generated.h"
@@ -25,5 +26,5 @@ public:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	class UTextBlock* woodText;
 
-	void UpdateInfo(int coins, int trees);
+	void UpdateInfo(AIdleChopperMode* GameMode);
 };
