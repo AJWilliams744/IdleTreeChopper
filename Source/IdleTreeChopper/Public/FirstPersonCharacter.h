@@ -49,6 +49,10 @@ protected:
 	void AttackOn();
 	void AttackOff();
 
+	void Interact();
+
+	bool RayCastCamera(AActor*& HitActor) const;
+
 private:
 	float forwardSpeed;
 	UCharacterMovementComponent* MovementComponent;

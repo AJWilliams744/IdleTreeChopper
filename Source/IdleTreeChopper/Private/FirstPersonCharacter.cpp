@@ -42,19 +42,8 @@ void AFirstPersonCharacter::Tick(float DeltaTime)
 
 	if (AttackHeld)
 	{
-		FHitResult Hit;
-
-		FVector TraceStart = Camera->GetComponentLocation();
-		FVector TraceEnd = TraceStart + Camera->GetForwardVector() * 150.0f;
-
-		FCollisionQueryParams QueryParams;
-		QueryParams.AddIgnoredActor(this);
-
-		GetWorld()->LineTraceSingleByChannel(Hit, TraceStart, TraceEnd, TraceChannelProperty, QueryParams);
-
-		AActor* HitActor = Hit.GetActor();
-
-		if (Hit.bBlockingHit && IsValid(HitActor))
+		AActor* HitActor = nullptr;
+		if (RayCastCamera(HitActor))
 		{
 			if (IIDamage* damage = Cast<IIDamage>(HitActor))
 			{
@@ -71,6 +60,7 @@ void AFirstPersonCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AFirstPersonCharacter::Jump);
 	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &AFirstPersonCharacter::SprintOn);
 	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &AFirstPersonCharacter::SprintOff);
+	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &AFirstPersonCharacter::Interact);
 
 	PlayerInputComponent->BindAction("Attack", IE_Pressed, this, &AFirstPersonCharacter::AttackOn);
 	PlayerInputComponent->BindAction("Attack", IE_Released, this, &AFirstPersonCharacter::AttackOff);
@@ -122,4 +112,37 @@ void AFirstPersonCharacter::AttackOn()
 void AFirstPersonCharacter::AttackOff()
 {
 	AttackHeld = false;
+}
+
+void AFirstPersonCharacter::Interact()
+{
+	AActor* HitActor = nullptr;
+	if (RayCastCamera(HitActor))
+	{
+		if (IInteractInterface* Interact = Cast<IInteractInterface>(HitActor))
+		{
+			Interact->Interact(this);
+		}
+	}
+}
+
+bool AFirstPersonCharacter::RayCastCamera(AActor*& HitActor) const
+{
+	FHitResult Hit;
+
+	FVector TraceStart = Camera->GetComponentLocation();
+	FVector TraceEnd = TraceStart + Camera->GetForwardVector() * 150.0f;
+
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(this);
+
+	GetWorld()->LineTraceSingleByChannel(Hit, TraceStart, TraceEnd, TraceChannelProperty, QueryParams);
+
+	HitActor = Hit.GetActor();
+	if (Hit.bBlockingHit && IsValid(HitActor))
+	{
+		return true;
+	}
+
+	return false;
 }
