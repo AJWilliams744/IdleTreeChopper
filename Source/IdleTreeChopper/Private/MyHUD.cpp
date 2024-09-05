@@ -18,3 +18,8 @@ void AMyHUD::BeginPlay()
 
 	GameMode = Cast<AIdleChopperMode>(GetWorld()->GetAuthGameMode());
 }
+
+void AMyHUD::CreatePopupManager()
+{
+	//MyPopupManager = new PopupManager(this);
+}

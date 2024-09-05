@@ -19,9 +19,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UUIWidget* gameUI;
 
+	class PopupManager* MyPopupManager;
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	virtual void BeginPlay() override;
+
+	UFUNCTION(BlueprintCallable, Category = "Popups")
+	void CreatePopupManager();
 
 private:
 	AIdleChopperMode* GameMode;

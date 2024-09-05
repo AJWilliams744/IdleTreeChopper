@@ -3,6 +3,7 @@
 
 #include "Shop.h"
 
+#include "PopupManager.h"
 #include "Components/BoxComponent.h"
 
 // Sets default values
@@ -28,4 +29,5 @@ void AShop::Tick(float DeltaTime)
 
 void AShop::Interact(AFirstPersonCharacter* Character)
 {
+	PopupManager::Instance->ShowPopup(PopupClass);
 }

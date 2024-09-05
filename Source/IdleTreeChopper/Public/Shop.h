@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "InteractInterface.h"
+#include "Popup.h"
 #include "GameFramework/Actor.h"
 #include "Shop.generated.h"
 
@@ -26,8 +27,13 @@ public:
 	UPROPERTY(EditAnywhere)
 	class UStaticMeshComponent* StaticMesh;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Popup")
+	TSubclassOf<UPopup> PopupClass;
+
 	UPROPERTY(EditAnywhere)
 	class UBoxComponent* Box;
+
+	class UPopup* Popup;
 
 	virtual void Interact(AFirstPersonCharacter* Character) override;
 };
