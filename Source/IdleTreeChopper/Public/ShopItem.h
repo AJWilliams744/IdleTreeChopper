@@ -2,7 +2,10 @@
 
 #pragma once
 
+#include <string>
+
 #include "CoreMinimal.h"
+#include "InventoryItem.h"
 #include "Blueprint/UserWidget.h"
 #include "ShopItem.generated.h"
 
@@ -22,8 +25,16 @@ public:
 	class UTextBlock* ButtonText;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+	class UTextBlock* NameText;
+
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	class UTextBlock* PriceText;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	class UImage* Picture;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class TSubclassOf<InventoryItem> ItemClass;
+
+	void UpdateData(bool Buying, FString Name, float Price);
 };
