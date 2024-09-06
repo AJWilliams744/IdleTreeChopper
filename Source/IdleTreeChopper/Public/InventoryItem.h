@@ -2,19 +2,20 @@
 
 #pragma once
 
-#include <string>
-
 #include "CoreMinimal.h"
+#include "InventoryItem.generated.h"
 
 /**
  * 
  */
-class IDLETREECHOPPER_API InventoryItem
+UCLASS()
+class IDLETREECHOPPER_API UInventoryItem : public UObject
 {
-public:
-	InventoryItem();
-	~InventoryItem();
+	GENERATED_BODY()
 
-	std::string Name = "Item";
+public:
 	int Quantity;
+
+	virtual FString GetName();
+	virtual FString GetTextureName();
 };

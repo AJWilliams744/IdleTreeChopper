@@ -3,10 +3,13 @@
 
 #include "Wood.h"
 
-Wood::Wood()
+
+FString UWood::GetName()
 {
+	return "Wood";
 }
 
-Wood::~Wood()
+FString UWood::GetTextureName()
 {
+	return "/Script/Engine.Texture2D'/Game/Textures/Wood.Wood";
 }

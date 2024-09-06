@@ -4,15 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "InventoryItem.h"
+#include "Coins.generated.h"
 
 /**
  * 
  */
-class IDLETREECHOPPER_API Coins : public InventoryItem
+UCLASS()
+class IDLETREECHOPPER_API UCoins : public UInventoryItem
 {
-public:
-	Coins();
-	~Coins();
+	GENERATED_BODY()
 
-	std::string Name = "Coins";
+public:
+	virtual FString GetName() override;
+	virtual FString GetTextureName() override;
 };

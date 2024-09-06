@@ -15,6 +15,10 @@ class IDLETREECHOPPER_API UShopWidget : public UPopup
 {
 	GENERATED_BODY()
 
+protected:
+	// Called when the game starts or when spawned
+	virtual void NativeConstruct() override;
+
 public:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	class UUniformGridPanel* SellGrid;
@@ -24,4 +28,8 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	class UButton* ExitButton;
+
+private:
+	UFUNCTION()
+	void ShopClosed();
 };

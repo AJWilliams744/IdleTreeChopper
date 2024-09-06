@@ -4,15 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "InventoryItem.h"
+#include "Wood.generated.h"
 
 /**
  * 
  */
-class IDLETREECHOPPER_API Wood : public InventoryItem
+UCLASS()
+class IDLETREECHOPPER_API UWood : public UInventoryItem
 {
-public:
-	Wood();
-	~Wood();
+	GENERATED_BODY()
 
-	std::string Name = "Wood";
+public:
+	virtual FString GetName() override;
+	virtual FString GetTextureName() override;
 };

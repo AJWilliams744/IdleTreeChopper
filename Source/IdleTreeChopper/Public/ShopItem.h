@@ -2,8 +2,6 @@
 
 #pragma once
 
-#include <string>
-
 #include "CoreMinimal.h"
 #include "InventoryItem.h"
 #include "Blueprint/UserWidget.h"
@@ -16,6 +14,10 @@ UCLASS()
 class IDLETREECHOPPER_API UShopItem : public UUserWidget
 {
 	GENERATED_BODY()
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void NativeConstruct() override;
 
 public:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
@@ -33,8 +35,15 @@ public:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	class UImage* Picture;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class TSubclassOf<InventoryItem> ItemClass;
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+	class UTextBlock* QuantityText;
 
-	void UpdateData(bool Buying, FString Name, float Price);
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class TSubclassOf<UInventoryItem> ItemClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool Buying;
+
+private:
+	void UpdateData();
 };

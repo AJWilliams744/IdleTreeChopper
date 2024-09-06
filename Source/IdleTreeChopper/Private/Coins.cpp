@@ -3,10 +3,12 @@
 
 #include "Coins.h"
 
-Coins::Coins()
+FString UCoins::GetName()
 {
+	return "Coins";
 }
 
-Coins::~Coins()
+FString UCoins::GetTextureName()
 {
+	return "/Script/Engine.Texture2D'/Game/Textures/Coins.Coins";
 }

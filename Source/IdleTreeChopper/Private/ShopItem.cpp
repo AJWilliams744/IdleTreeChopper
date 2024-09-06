@@ -5,8 +5,18 @@
 
 #include "Components/TextBlock.h"
 
-void UShopItem::UpdateData(bool Buying, FString Name, float Price)
+void UShopItem::NativeConstruct()
 {
+	Super::NativeConstruct();
+
+	if (!ItemClass)
+	{
+		UE_LOG(LogTemp, Error, TEXT("No Item Class Selected"));
+		return;
+	}
+
+	UInventoryItem* Item = NewObject<UInventoryItem>(this, ItemClass);
+
 	if (Buying)
 	{
 		ButtonText->SetText(FText::FromString("Buy"));
@@ -16,10 +26,16 @@ void UShopItem::UpdateData(bool Buying, FString Name, float Price)
 		ButtonText->SetText(FText::FromString("Sell"));
 	}
 
-	NameText->SetText(FText::FromString(Name));
+	QuantityText->SetText(FText::FromString("x0"));
+
+	NameText->SetText(FText::FromString(Item->GetName()));
 	PriceText->SetText(FText::Format(
 		FText::FromString(TEXT("{0}{1}{2}")),
 		FText::FromString("Price: "),
-		FText::AsNumber(Price),
+		FText::AsNumber(0),
 		FText::FromString("G")));
+}
+
+void UShopItem::UpdateData()
+{
 }

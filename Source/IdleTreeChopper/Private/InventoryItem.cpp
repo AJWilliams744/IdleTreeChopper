@@ -3,10 +3,12 @@
 
 #include "InventoryItem.h"
 
-InventoryItem::InventoryItem()
+FString UInventoryItem::GetName()
 {
+	return "";
 }
 
-InventoryItem::~InventoryItem()
+FString UInventoryItem::GetTextureName()
 {
+	return "";
 }
