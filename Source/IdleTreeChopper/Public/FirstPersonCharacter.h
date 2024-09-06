@@ -3,8 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "IdleChopperMode.h"
-#include "MyHUD.h"
+#include "InventoryManager.h"
 #include "GameFramework/Character.h"
 #include "FirstPersonCharacter.generated.h"
 
@@ -31,7 +30,7 @@ public:
 	UPROPERTY(EditAnywhere, Category="Collision", BlueprintReadWrite)
 	TEnumAsByte<ECollisionChannel> TraceChannelProperty = ECC_Pawn;
 
-	AIdleChopperMode* GameMode;
+	UInventoryManager* InventoryManager;
 
 protected:
 	UPROPERTY(EditAnywhere)
@@ -57,6 +56,4 @@ private:
 	float forwardSpeed;
 	UCharacterMovementComponent* MovementComponent;
 	bool AttackHeld;
-
-	AMyHUD* Hud;
 };

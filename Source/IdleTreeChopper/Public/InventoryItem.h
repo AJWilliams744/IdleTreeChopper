@@ -14,7 +14,7 @@ class IDLETREECHOPPER_API UInventoryItem : public UObject
 	GENERATED_BODY()
 
 public:
-	int Quantity;
+	int Quantity = 1;
 
 	virtual FString GetName();
 	virtual FString GetTextureName();

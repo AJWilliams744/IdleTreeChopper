@@ -5,12 +5,18 @@
 
 #include "IdleChopperMode.h"
 #include "PopupManager.h"
+#include "Kismet/GameplayStatics.h"
 
 void AMyHUD::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	gameUI->UpdateInfo(GameMode);
+	if (!Character)
+	{
+		Character = Cast<AFirstPersonCharacter>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetCharacter());
+	}
+
+	gameUI->UpdateInfo(Character);
 }
 
 void AMyHUD::BeginPlay()

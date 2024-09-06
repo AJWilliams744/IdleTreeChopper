@@ -3,10 +3,38 @@
 
 #include "UIWidget.h"
 
+#include <filesystem>
+
+#include "Coins.h"
+#include "Wood.h"
 #include "Components/TextBlock.h"
 
-void UUIWidget::UpdateInfo(AIdleChopperMode* GameMode)
+void UUIWidget::UpdateInfo(AFirstPersonCharacter* Character)
 {
-	coinText->SetText(FText::AsNumber(GameMode->coins));
-	woodText->SetText(FText::AsNumber(GameMode->wood));
+	if (!Character)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No character"));
+		return;
+	}
+	if (Coins)
+	{
+		coinText->SetText(FText::AsNumber(Coins->Quantity));
+	}
+	else
+	{
+		UInventoryItem* Item = Character->InventoryManager->GetItemByName(UCoins::Name);
+		if (Item) Coins = Cast<UCoins>(Item);
+		coinText->SetText(FText::AsNumber(0));
+	}
+
+	if (Wood)
+	{
+		woodText->SetText(FText::AsNumber(Wood->Quantity));
+	}
+	else
+	{
+		UInventoryItem* Item = Character->InventoryManager->GetItemByName(UWood::Name);
+		if (Item) Wood = Cast<UWood>(Item);
+		woodText->SetText(FText::AsNumber(0));
+	}
 }

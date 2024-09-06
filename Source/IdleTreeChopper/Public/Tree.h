@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "IDamage.h"
 #include "InteractInterface.h"
+#include "Wood.h"
 #include "Components/BoxComponent.h"
 #include "GameFramework/Actor.h"
 #include "Tree.generated.h"
@@ -39,4 +40,5 @@ public:
 
 private:
 	float Health;
+	UWood* Wood;
 };

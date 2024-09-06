@@ -3,6 +3,7 @@
 
 #include "Tree.h"
 
+#include "Wood.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -24,6 +25,7 @@ ATree::ATree()
 void ATree::BeginPlay()
 {
 	Super::BeginPlay();
+	Wood = NewObject<UWood>();
 }
 
 // Called every frame
@@ -40,7 +42,7 @@ void ATree::Hit(AFirstPersonCharacter* Character)
 
 	if (Health <= 0)
 	{
-		Character->GameMode->wood++;
+		Character->InventoryManager->AddItem(Wood);
 		Health = MaxHealth;
 	}
 }

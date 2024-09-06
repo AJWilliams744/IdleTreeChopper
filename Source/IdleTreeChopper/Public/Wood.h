@@ -15,6 +15,7 @@ class IDLETREECHOPPER_API UWood : public UInventoryItem
 	GENERATED_BODY()
 
 public:
-	virtual FString GetName() override;
 	virtual FString GetTextureName() override;
+	virtual FString GetName() override;
+	static FString Name;
 };

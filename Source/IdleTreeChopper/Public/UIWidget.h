@@ -3,7 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Coins.h"
 #include "IdleChopperMode.h"
+#include "Wood.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/Image.h"
 #include "UIWidget.generated.h"
@@ -26,5 +28,9 @@ public:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	class UTextBlock* woodText;
 
-	void UpdateInfo(AIdleChopperMode* GameMode);
+	void UpdateInfo(AFirstPersonCharacter* Character);
+
+private:
+	UWood* Wood = nullptr;
+	UCoins* Coins = nullptr;
 };

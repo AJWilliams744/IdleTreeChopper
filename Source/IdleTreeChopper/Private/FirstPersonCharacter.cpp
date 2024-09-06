@@ -31,8 +31,7 @@ void AFirstPersonCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Hud = Cast<AMyHUD>(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHUD());
-	GameMode = Cast<AIdleChopperMode>(GetWorld()->GetAuthGameMode());
+	InventoryManager = NewObject<UInventoryManager>();
 }
 
 // Called every frame
