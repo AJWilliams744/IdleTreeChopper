@@ -3,25 +3,27 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Popup.h"
 #include "Blueprint/UserWidget.h"
-#include "ShopWidget.generated.h"
+#include "ShopItem.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class IDLETREECHOPPER_API UShopWidget : public UPopup
+class IDLETREECHOPPER_API UShopItem : public UUserWidget
 {
 	GENERATED_BODY()
 
 public:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	class UUniformGridPanel* SellGrid;
+	class UButton* Button;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	class UUniformGridPanel* BuyGrid;
+	class UTextBlock* ButtonText;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	class UButton* ExitButton;
+	class UTextBlock* PriceText;
+
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+	class UImage* Picture;
 };
