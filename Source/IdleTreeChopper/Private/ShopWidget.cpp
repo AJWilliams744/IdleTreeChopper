@@ -4,14 +4,30 @@
 #include "ShopWidget.h"
 
 #include "PopupManager.h"
+#include "ShopItem.h"
 #include "Components/Button.h"
+#include "Components/UniformGridPanel.h"
 
 void UShopWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
-	UE_LOG(LogTemp, Warning, TEXT("Shop Wait SetupClosed"));
 
 	ExitButton->OnClicked.AddDynamic(this, &UShopWidget::ShopClosed);
+
+	TArray<UWidget*> Children = SellGrid->GetAllChildren();
+
+	for (UWidget* Child : Children)
+	{
+		if (!Child) continue;
+
+		UShopItem* ShopItem = Cast<UShopItem>(Child);
+		if (!ShopItem)
+		{
+			continue;
+		}
+
+		ShopItem->UpdateData(Character->InventoryManager);
+	}
 }
 
 void UShopWidget::ShopClosed()

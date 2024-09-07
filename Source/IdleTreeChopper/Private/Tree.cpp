@@ -25,7 +25,7 @@ ATree::ATree()
 void ATree::BeginPlay()
 {
 	Super::BeginPlay();
-	Wood = NewObject<UWood>();
+	Health = MaxHealth;
 }
 
 // Called every frame
@@ -42,7 +42,7 @@ void ATree::Hit(AFirstPersonCharacter* Character)
 
 	if (Health <= 0)
 	{
-		Character->InventoryManager->AddItem(Wood);
+		Character->InventoryManager->AddItem(UWood::StaticClass(), 1);
 		Health = MaxHealth;
 	}
 }

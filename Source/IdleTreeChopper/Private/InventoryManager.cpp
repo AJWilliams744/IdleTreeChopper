@@ -3,31 +3,27 @@
 
 #include "InventoryManager.h"
 
-void UInventoryManager::AddItem(UInventoryItem* NewItem)
+void UInventoryManager::AddItem(TSubclassOf<UInventoryItem> ClassType, int Quantity)
 {
-	if (!NewItem) return;
-
-	if (!IsClassTypeInArray(NewItem->GetClass()))
+	if (!IsClassTypeInArray(ClassType))
 	{
-		UInventoryItem* addItem = NewObject<UInventoryItem>(this, NewItem->GetClass());
-		addItem->Quantity = NewItem->Quantity;
+		UInventoryItem* addItem = NewObject<UInventoryItem>(this, ClassType);
+		addItem->Quantity = Quantity;
 		InventoryItems.Add(addItem);
 	}
 	else
 	{
-		UInventoryItem* foundItem = GetItem(NewItem->GetClass());
-		foundItem->Quantity += NewItem->Quantity;
-
-		UE_LOG(LogTemp, Display, TEXT("Item Quantity = %d"), foundItem->Quantity);
+		UInventoryItem* foundItem = GetItem(ClassType);
+		foundItem->Quantity += Quantity;
 	}
 }
 
-void UInventoryManager::RemoveItem(UInventoryItem* ItemToRemove)
+void UInventoryManager::RemoveItem(TSubclassOf<UInventoryItem> ClassType, int Quantity)
 {
-	if (!ItemToRemove || !IsClassTypeInArray(ItemToRemove->GetClass())) return;
+	if (!IsClassTypeInArray(ClassType)) return;
 
-	UInventoryItem* foundItem = GetItem(ItemToRemove->GetClass());
-	foundItem->Quantity -= ItemToRemove->Quantity;
+	UInventoryItem* foundItem = GetItem(ClassType);
+	foundItem->Quantity -= Quantity;
 
 	if (foundItem->Quantity <= 0)
 	{

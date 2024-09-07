@@ -40,5 +40,4 @@ public:
 
 private:
 	float Health;
-	UWood* Wood;
 };

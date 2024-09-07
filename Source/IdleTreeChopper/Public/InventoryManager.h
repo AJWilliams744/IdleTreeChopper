@@ -20,10 +20,10 @@ public:
 
 	// Functions to manage the inventory
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	void AddItem(UInventoryItem* NewItem);
+	void AddItem(TSubclassOf<UInventoryItem> ClassType, int Quantity);
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	void RemoveItem(UInventoryItem* ItemToRemove);
+	void RemoveItem(TSubclassOf<UInventoryItem> ClassType, int Quantity);
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	UInventoryItem* GetItem(TSubclassOf<UInventoryItem> ClassType) const;

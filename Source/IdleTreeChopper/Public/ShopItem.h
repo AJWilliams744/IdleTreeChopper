@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "InventoryItem.h"
+#include "InventoryManager.h"
 #include "Blueprint/UserWidget.h"
 #include "ShopItem.generated.h"
 
@@ -44,6 +45,5 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool Buying;
 
-private:
-	void UpdateData();
+	void UpdateData(UInventoryManager* InventoryManager);
 };

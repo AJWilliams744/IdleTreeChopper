@@ -3,6 +3,7 @@
 
 #include "ShopItem.h"
 
+#include "InventoryManager.h"
 #include "Components/TextBlock.h"
 
 void UShopItem::NativeConstruct()
@@ -36,6 +37,10 @@ void UShopItem::NativeConstruct()
 		FText::FromString("G")));
 }
 
-void UShopItem::UpdateData()
+void UShopItem::UpdateData(UInventoryManager* InventoryManager)
 {
+	UInventoryItem* Item = InventoryManager->GetItem(ItemClass);
+	if (!Item) return;
+
+	QuantityText->SetText(FText::AsNumber(Item->Quantity));
 }

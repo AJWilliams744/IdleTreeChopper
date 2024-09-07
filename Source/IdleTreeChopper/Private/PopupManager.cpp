@@ -36,6 +36,7 @@ void PopupManager::ShowPopup(TSubclassOf<UPopup> PopupClass)
 	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(Hud->GetWorld(), 0);
 	currentPopup = CreateWidget<UPopup>(PlayerController, PopupClass);
 
+	currentPopup->Character = Cast<AFirstPersonCharacter>(PlayerController->GetCharacter());
 
 	currentPopup->AddToViewport(9999); // Z-order, this just makes it render on the very top.
 
