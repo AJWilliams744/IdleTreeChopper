@@ -1,0 +1,14 @@
+{
+  "Items": [
+    {
+      "Name": "Wood",
+      "Texture": "/Script/Engine.Texture2D'/Game/Textures/Wood.Wood",
+      "SellPrice": 2
+    },
+    {
+      "Name": "Coins",
+      "Texture": "/Script/Engine.Texture2D'/Game/Textures/Coins.Coins",
+      "SellPrice": 1
+    }
+  ]
+}

@@ -2,6 +2,10 @@
 
 
 #include "InventoryManager.h"
+#include "Json.h"               // For FJsonObject, FJsonSerializer
+#include "JsonUtilities.h"       // For JSON utilities like FJsonObjectConverter
+#include "Misc/FileHelper.h"     // For FFileHelper::LoadFileToString
+#include "Misc/Paths.h"          // For FPaths::ProjectContentDir()
 
 void UInventoryManager::AddItem(TSubclassOf<UInventoryItem> ClassType, int Quantity)
 {
@@ -65,4 +69,43 @@ bool UInventoryManager::IsClassTypeInArray(TSubclassOf<UInventoryItem> ClassType
 		}
 	}
 	return false;
+}
+
+void UInventoryManager::LoadInventoryDataFromJSON()
+{
+	FString FilePath = FPaths::ProjectContentDir() + TEXT("/Data/InventoryItemsData.json");
+	FString JsonContent;
+
+	// Load the JSON file into a string
+	if (!FFileHelper::LoadFileToString(JsonContent, *FilePath))
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to load inventory JSON file!"));
+		return;
+	}
+
+	// Parse the JSON string
+	TSharedPtr<FJsonObject> JsonObject;
+	TSharedRef<TJsonReader<>> Reader = TJsonReaderFactory<>::Create(JsonContent);
+
+	if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
+	{
+		// Get the array of items
+		TArray<TSharedPtr<FJsonValue>> ItemsArray = JsonObject->GetArrayField("Items");
+
+		for (TSharedPtr<FJsonValue> ItemValue : ItemsArray)
+		{
+			TSharedPtr<FJsonObject> ItemObject = ItemValue->AsObject();
+
+			// Extract data
+			FString Name = ItemObject->GetStringField("Name");
+			FString Texture = ItemObject->GetStringField("Texture");
+			int32 SellPrice = ItemObject->GetIntegerField("SellPrice");
+
+			InventoryData.Add(Name, FInventoryItemData(Name, Texture, SellPrice));
+		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to parse inventory JSON file!"));
+	}
 }

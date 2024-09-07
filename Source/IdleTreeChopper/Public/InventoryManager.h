@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "InventoryItem.h"
+#include "InventoryItemData.h"
 #include "InventoryManager.generated.h"
 
 /**
@@ -17,6 +18,9 @@ class IDLETREECHOPPER_API UInventoryManager : public UObject
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
 	TArray<UInventoryItem*> InventoryItems;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
+	TMap<FString, FInventoryItemData> InventoryData;
 
 	// Functions to manage the inventory
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
@@ -32,4 +36,6 @@ public:
 	UInventoryItem* GetItemByName(const FString& ItemName) const;
 
 	bool IsClassTypeInArray(TSubclassOf<UInventoryItem> ClassType);
+
+	void LoadInventoryDataFromJSON();
 };

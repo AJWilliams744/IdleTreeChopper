@@ -39,8 +39,16 @@ void UShopItem::NativeConstruct()
 
 void UShopItem::UpdateData(UInventoryManager* InventoryManager)
 {
+	UE_LOG(LogTemp, Warning, TEXT("New data set"));
 	UInventoryItem* Item = InventoryManager->GetItem(ItemClass);
-	if (!Item) return;
+
+	if (!Item) Item = NewObject<UInventoryItem>(this, ItemClass);
 
 	QuantityText->SetText(FText::AsNumber(Item->Quantity));
+
+	PriceText->SetText(FText::Format(
+		FText::FromString(TEXT("{0}{1}{2}")),
+		FText::FromString("Price: "),
+		FText::AsNumber(InventoryManager->InventoryData[Item->GetName()].SellPrice),
+		FText::FromString("G")));
 }

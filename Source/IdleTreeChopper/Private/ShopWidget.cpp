@@ -32,6 +32,5 @@ void UShopWidget::NativeConstruct()
 
 void UShopWidget::ShopClosed()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Shop Wait Closed"));
 	PopupManager::Instance->ClosePopup();
 }

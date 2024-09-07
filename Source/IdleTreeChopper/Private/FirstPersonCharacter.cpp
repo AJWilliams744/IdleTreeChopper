@@ -32,6 +32,7 @@ void AFirstPersonCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	InventoryManager = NewObject<UInventoryManager>();
+	InventoryManager->LoadInventoryDataFromJSON();
 }
 
 // Called every frame
