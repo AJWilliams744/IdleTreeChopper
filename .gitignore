@@ -67,6 +67,7 @@ Build/*/**
 Saved/*
 
 Content/StarterContent/*
+Content/Stylized_PBR_Nature/*
 
 # Compiled source files for the engine to use
 Intermediate/*

@@ -3,9 +3,8 @@
 
 #include "UIWidget.h"
 
-#include <filesystem>
-
 #include "Coins.h"
+#include "FirstPersonCharacter.h"
 #include "Wood.h"
 #include "Components/TextBlock.h"
 
@@ -16,6 +15,8 @@ void UUIWidget::UpdateInfo(AFirstPersonCharacter* Character)
 		UE_LOG(LogTemp, Warning, TEXT("No character"));
 		return;
 	}
+
+
 	if (Coins)
 	{
 		coinText->SetText(FText::AsNumber(Coins->Quantity));

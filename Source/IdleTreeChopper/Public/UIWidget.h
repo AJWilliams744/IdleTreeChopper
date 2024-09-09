@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Coins.h"
+#include "FirstPersonCharacter.h"
 #include "IdleChopperMode.h"
 #include "Wood.h"
 #include "Blueprint/UserWidget.h"

@@ -27,11 +27,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UStaticMeshComponent* StaticMesh;
-
-	UPROPERTY(EditAnywhere)
-	class UBoxComponent* Box;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHealth = 2;

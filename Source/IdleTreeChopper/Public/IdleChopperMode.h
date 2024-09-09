@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "FirstPersonCharacter.h"
 #include "GameFramework/GameModeBase.h"
 #include "IdleChopperMode.generated.h"
 

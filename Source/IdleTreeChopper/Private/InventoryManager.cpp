@@ -9,6 +9,12 @@
 
 void UInventoryManager::AddItem(TSubclassOf<UInventoryItem> ClassType, int Quantity)
 {
+	if (!ClassType)
+	{
+		UE_LOG(LogTemp, Error, TEXT("InventoryManager::AddItem: ClassType is null"));
+		return;
+	}
+
 	if (!IsClassTypeInArray(ClassType))
 	{
 		UInventoryItem* addItem = NewObject<UInventoryItem>(this, ClassType);
@@ -90,16 +96,16 @@ void UInventoryManager::LoadInventoryDataFromJSON()
 	if (FJsonSerializer::Deserialize(Reader, JsonObject) && JsonObject.IsValid())
 	{
 		// Get the array of items
-		TArray<TSharedPtr<FJsonValue>> ItemsArray = JsonObject->GetArrayField("Items");
+		TArray<TSharedPtr<FJsonValue>> ItemsArray = JsonObject->GetArrayField(TEXT("Items"));
 
 		for (TSharedPtr<FJsonValue> ItemValue : ItemsArray)
 		{
 			TSharedPtr<FJsonObject> ItemObject = ItemValue->AsObject();
 
 			// Extract data
-			FString Name = ItemObject->GetStringField("Name");
-			FString Texture = ItemObject->GetStringField("Texture");
-			int32 SellPrice = ItemObject->GetIntegerField("SellPrice");
+			FString Name = ItemObject->GetStringField(TEXT("Name"));
+			FString Texture = ItemObject->GetStringField(TEXT("Texture"));
+			int32 SellPrice = ItemObject->GetIntegerField(TEXT("SellPrice"));
 
 			InventoryData.Add(Name, FInventoryItemData(Name, Texture, SellPrice));
 		}
