@@ -3,7 +3,9 @@
 
 #include "ShopItem.h"
 
+#include "Coins.h"
 #include "InventoryManager.h"
+#include "Components/Button.h"
 #include "Components/TextBlock.h"
 
 void UShopItem::NativeConstruct()
@@ -16,7 +18,7 @@ void UShopItem::NativeConstruct()
 		return;
 	}
 
-	UInventoryItem* Item = NewObject<UInventoryItem>(this, ItemClass);
+	Item = NewObject<UInventoryItem>(this, ItemClass);
 
 	if (Buying)
 	{
@@ -26,6 +28,8 @@ void UShopItem::NativeConstruct()
 	{
 		ButtonText->SetText(FText::FromString("Sell"));
 	}
+
+	Button->OnClicked.AddDynamic(this, &UShopItem::ButtonClicked);
 
 	QuantityText->SetText(FText::FromString("x0"));
 
@@ -37,10 +41,10 @@ void UShopItem::NativeConstruct()
 		FText::FromString("G")));
 }
 
-void UShopItem::UpdateData(UInventoryManager* InventoryManager)
+void UShopItem::UpdateData(UInventoryManager* InInventoryManager)
 {
-	UE_LOG(LogTemp, Warning, TEXT("New data set"));
-	UInventoryItem* Item = InventoryManager->GetItem(ItemClass);
+	InventoryManager = InInventoryManager;
+	Item = InventoryManager->GetItem(ItemClass);
 
 	if (!Item) Item = NewObject<UInventoryItem>(this, ItemClass);
 
@@ -51,4 +55,19 @@ void UShopItem::UpdateData(UInventoryManager* InventoryManager)
 		FText::FromString("Price: "),
 		FText::AsNumber(InventoryManager->InventoryData[Item->GetName()].SellPrice),
 		FText::FromString("G")));
+}
+
+void UShopItem::ButtonClicked()
+{
+	if (!Item) Item = NewObject<UInventoryItem>(this, ItemClass);
+	if (!Buying)
+	{
+		if (Item->Quantity > 0)
+		{
+			InventoryManager->AddItem(UCoins::StaticClass(), InventoryManager->InventoryData[Item->GetName()].SellPrice);
+			InventoryManager->RemoveItem(ItemClass, 1);
+		}
+	}
+
+	UpdateData(InventoryManager);
 }

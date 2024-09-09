@@ -45,5 +45,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool Buying;
 
-	void UpdateData(UInventoryManager* InventoryManager);
+	void UpdateData(UInventoryManager* InInventoryManager);
+
+	UFUNCTION()
+	void ButtonClicked();
+
+private:
+	UInventoryManager* InventoryManager;
+	UInventoryItem* Item;
 };
