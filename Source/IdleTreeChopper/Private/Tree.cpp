@@ -33,19 +33,46 @@ void ATree::BeginPlay()
 void ATree::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (Dead)
+	{
+		RespawnTime += DeltaTime;
+		if (RespawnTime > RespawnRate)
+		{
+			Dead = false;
+			Health = MaxHealth;
+			RespawnTime = 0;
+			SetTreeVisibility(true);
+		}
+	}
 }
 
 void ATree::Hit(AFirstPersonCharacter* Character)
 {
-	float deltaTime = UGameplayStatics::GetWorldDeltaSeconds(this);
+	if (Dead) return;
 
-	UE_LOG(LogTemp, Warning, TEXT("Hit"));
+	float deltaTime = UGameplayStatics::GetWorldDeltaSeconds(this);
 
 	Health -= deltaTime;
 
 	if (Health <= 0)
 	{
 		Character->InventoryManager->AddItem(UWood::StaticClass(), 1);
-		Health = MaxHealth;
+		Dead = true;
+		SetTreeVisibility(false);
 	}
+}
+
+void ATree::SetTreeVisibility(const bool Visibility)
+{
+	if (!Visibility)
+	{
+		OnTreeDissolved();
+	}
+	else
+	{
+		OnTreeSpawn();
+	}
+
+	StaticMesh->SetCollisionEnabled(Visibility ? ECollisionEnabled::QueryAndPhysics : ECollisionEnabled::NoCollision);
 }

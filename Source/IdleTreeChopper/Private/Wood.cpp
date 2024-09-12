@@ -7,10 +7,10 @@ FString UWood::Name = TEXT("Wood");
 
 FString UWood::GetTextureName()
 {
-	return "/Script/Engine.Texture2D'/Game/Textures/Wood.Wood";
+    return "/Script/Engine.Texture2D'/Game/CraftResourcesIcons/Textures/Tex_wood_03_b.Tex_wood_03_b'";
 }
 
 FString UWood::GetName()
 {
-	return Name;
+    return Name;
 }

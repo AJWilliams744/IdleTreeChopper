@@ -7,10 +7,10 @@ FString UCoins::Name = TEXT("Coins");
 
 FString UCoins::GetTextureName()
 {
-	return "/Script/Engine.Texture2D'/Game/Textures/Coins.Coins";
+    return "/Script/Engine.Texture2D'/Game/CraftResourcesIcons/Textures/Tex_spare_parts_11_b.Tex_spare_parts_11_b'";
 }
 
 FString UCoins::GetName()
 {
-	return Name;
+    return Name;
 }

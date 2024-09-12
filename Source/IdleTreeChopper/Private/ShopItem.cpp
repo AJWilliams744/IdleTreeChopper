@@ -50,10 +50,12 @@ void UShopItem::UpdateData(UInventoryManager* InInventoryManager)
 
 	QuantityText->SetText(FText::AsNumber(Item->Quantity));
 
+	FInventoryItemData ItemData = InventoryManager->InventoryData[Item->GetName()];
+
 	PriceText->SetText(FText::Format(
 		FText::FromString(TEXT("{0}{1}{2}")),
 		FText::FromString("Price: "),
-		FText::AsNumber(InventoryManager->InventoryData[Item->GetName()].SellPrice),
+		FText::AsNumber(ItemData.SellPrice),
 		FText::FromString("G")));
 }
 

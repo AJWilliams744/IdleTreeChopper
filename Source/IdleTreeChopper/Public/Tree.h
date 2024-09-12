@@ -33,8 +33,23 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHealth = 2;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float RespawnRate = 10;
+
 	virtual void Hit(AFirstPersonCharacter* Character) override;
 
-private:
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+
 	float Health;
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Events")
+	void OnTreeDissolved();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Events")
+	void OnTreeSpawn();
+
+private:
+	bool Dead;
+	float RespawnTime;
+	void SetTreeVisibility(bool Visibility);
 };
