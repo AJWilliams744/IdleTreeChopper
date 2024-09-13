@@ -63,7 +63,6 @@ void UPlayerStatItem::ButtonClicked()
 	if (Item->Quantity > Price)
 	{
 		StatsManager->AddStatValue(StatType, 0.5);
-		InventoryManager->AddItem(UCoins::StaticClass(), InventoryManager->InventoryData[Item->GetName()].SellPrice);
 		InventoryManager->RemoveItem(UCoins::StaticClass(), Price);
 	}
 

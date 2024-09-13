@@ -32,6 +32,9 @@ public:
 	void UpdateInfo(AFirstPersonCharacter* Character);
 
 private:
+	UPROPERTY()
 	UWood* Wood = nullptr;
+
+	UPROPERTY()
 	UCoins* Coins = nullptr;
 };

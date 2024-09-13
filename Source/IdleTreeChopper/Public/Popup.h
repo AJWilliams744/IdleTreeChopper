@@ -19,6 +19,7 @@ protected:
 	virtual void NativeConstruct() override;
 
 public:
+	UPROPERTY()
 	ACharacter* Character;
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))

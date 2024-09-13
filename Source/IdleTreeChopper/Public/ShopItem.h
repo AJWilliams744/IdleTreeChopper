@@ -8,6 +8,7 @@
 #include "Blueprint/UserWidget.h"
 #include "ShopItem.generated.h"
 
+class UPlayerStatsManager;
 /**
  * 
  */
@@ -45,12 +46,18 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool Buying;
 
-	void UpdateData(UInventoryManager* InInventoryManager);
+	void UpdateData(UInventoryManager* InInventoryManager, UPlayerStatsManager* InStatsManager);
 
 	UFUNCTION()
 	void ButtonClicked();
 
 private:
+	UPROPERTY()
 	UInventoryManager* InventoryManager;
+
+	UPROPERTY()
+	UPlayerStatsManager* StatsManager;
+
+	UPROPERTY()
 	UInventoryItem* Item;
 };

@@ -28,8 +28,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Popups")
 	void CreatePopupManager();
 
+	UPROPERTY()
 	AFirstPersonCharacter* Character;
 
 private:
+	UPROPERTY()
 	AIdleChopperMode* GameMode;
 };

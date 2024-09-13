@@ -53,7 +53,7 @@ void ATree::Hit(AFirstPersonCharacter* Character)
 
 	float deltaTime = UGameplayStatics::GetWorldDeltaSeconds(this);
 
-	Health -= deltaTime;
+	Health -= deltaTime * Character->StatsManager->GetStatValue(EPlayerStat::AttackDamage);
 
 	if (Health <= 0)
 	{

@@ -16,26 +16,61 @@ void UUIWidget::UpdateInfo(AFirstPersonCharacter* Character)
 		return;
 	}
 
-
-	if (Coins)
+	if (coinText)
 	{
-		coinText->SetText(FText::AsNumber(Coins->Quantity));
+		if (Coins)
+		{
+			coinText->SetText(FText::AsNumber(Coins->Quantity));
+		}
+		else if (Character->InventoryManager)
+		{
+			UInventoryItem* Item = Character->InventoryManager->GetItemByName(UCoins::Name);
+			if (Item)
+			{
+				Coins = Cast<UCoins>(Item);
+				coinText->SetText(FText::AsNumber(Coins->Quantity)); // Update with actual quantity
+			}
+			else
+			{
+				coinText->SetText(FText::AsNumber(0));
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("InventoryManager is null."));
+		}
 	}
 	else
 	{
-		UInventoryItem* Item = Character->InventoryManager->GetItemByName(UCoins::Name);
-		if (Item) Coins = Cast<UCoins>(Item);
-		coinText->SetText(FText::AsNumber(0));
+		UE_LOG(LogTemp, Warning, TEXT("coinText is not initialized."));
 	}
 
-	if (Wood)
+	if (woodText)
 	{
-		woodText->SetText(FText::AsNumber(Wood->Quantity));
+		if (Wood)
+		{
+			woodText->SetText(FText::AsNumber(Wood->Quantity));
+		}
+		else if (Character->InventoryManager)
+		{
+			UInventoryItem* Item = Character->InventoryManager->GetItemByName(UWood::Name);
+			if (Item)
+			{
+				Wood = Cast<UWood>(Item);
+				woodText->SetText(FText::AsNumber(Wood->Quantity)); // Update with actual quantity
+			}
+			else
+			{
+				woodText->SetText(FText::AsNumber(0));
+			}
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("InventoryManager is null."));
+		}
 	}
 	else
 	{
-		UInventoryItem* Item = Character->InventoryManager->GetItemByName(UWood::Name);
-		if (Item) Wood = Cast<UWood>(Item);
-		woodText->SetText(FText::AsNumber(0));
+		UE_LOG(LogTemp, Warning, TEXT("woodText is not initialized."));
 	}
 }

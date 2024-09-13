@@ -43,9 +43,26 @@ void UInventoryManager::RemoveItem(TSubclassOf<UInventoryItem> ClassType, int Qu
 
 UInventoryItem* UInventoryManager::GetItem(TSubclassOf<UInventoryItem> ClassType) const
 {
+	if (!ClassType)
+	{
+		UE_LOG(LogTemp, Error, TEXT("ClassType is null or invalid."));
+		return nullptr;
+	}
+
+	if (InventoryItems.Num() == 0)
+	{
+		return nullptr;
+	}
+
 	for (UInventoryItem* Item : InventoryItems)
 	{
-		if (Item && Item->IsA(ClassType))
+		if (!Item)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Found null item in InventoryItems."));
+			continue;
+		}
+
+		if (Item->IsA(ClassType))
 		{
 			return Item;
 		}
@@ -55,9 +72,20 @@ UInventoryItem* UInventoryManager::GetItem(TSubclassOf<UInventoryItem> ClassType
 
 UInventoryItem* UInventoryManager::GetItemByName(const FString& ItemName) const
 {
+	if (InventoryItems.Num() == 0)
+	{
+		return nullptr;
+	}
+
 	for (UInventoryItem* Item : InventoryItems)
 	{
-		if (Item && Item->GetName().Equals(ItemName, ESearchCase::IgnoreCase))
+		if (!Item)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Found null item in InventoryItems."));
+			continue;
+		}
+
+		if (Item->GetName().Equals(ItemName, ESearchCase::IgnoreCase))
 		{
 			return Item;
 		}
@@ -67,13 +95,38 @@ UInventoryItem* UInventoryManager::GetItemByName(const FString& ItemName) const
 
 bool UInventoryManager::IsClassTypeInArray(TSubclassOf<UInventoryItem> ClassType)
 {
+	if (!ClassType)
+	{
+		UE_LOG(LogTemp, Error, TEXT("ClassType is null or invalid."));
+		return false;
+	}
+
+	if (InventoryItems.Num() == 0)
+	{
+		return false;
+	}
+
 	for (UInventoryItem* Item : InventoryItems)
 	{
-		if (Item && Item->IsA(ClassType))
+		if (!Item)
 		{
+			UE_LOG(LogTemp, Warning, TEXT("Found null item in InventoryItems."));
+			continue;
+		}
+
+		// Log the class name of the Item object
+		UE_LOG(LogTemp, Warning, TEXT("Item is of class: %s"), *Item->GetClass()->GetName());
+
+		// Optionally, log the pointer address to track the object
+		UE_LOG(LogTemp, Warning, TEXT("Item address: %p"), Item);
+
+		if (Item->IsA(ClassType))
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Found item of type %s."), *Item->GetClass()->GetName());
 			return true;
 		}
 	}
+
 	return false;
 }
 

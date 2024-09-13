@@ -63,7 +63,8 @@ protected:
 	void Inventory();
 
 private:
-	float forwardSpeed;
+	float BaseSpeed;
+	float MaxSpeed;
 	UCharacterMovementComponent* MovementComponent;
 	bool AttackHeld;
 };

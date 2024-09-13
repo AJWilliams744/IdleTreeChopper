@@ -23,6 +23,8 @@ void UShopWidget::NativeConstruct()
 			continue;
 		}
 
-		ShopItem->UpdateData(Cast<AFirstPersonCharacter>(Character)->InventoryManager);
+		const AFirstPersonCharacter* Person = Cast<AFirstPersonCharacter>(Character);
+
+		ShopItem->UpdateData(Person->InventoryManager, Person->StatsManager);
 	}
 }

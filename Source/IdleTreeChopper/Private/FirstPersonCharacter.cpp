@@ -20,7 +20,8 @@ AFirstPersonCharacter::AFirstPersonCharacter()
 	Camera->bUsePawnControlRotation = true;
 
 	MovementComponent = GetCharacterMovement();
-	forwardSpeed = MovementComponent->MaxWalkSpeed;
+	BaseSpeed = MovementComponent->MaxWalkSpeed;
+	MaxSpeed = BaseSpeed;
 }
 
 // Called when the game starts or when spawned
@@ -38,6 +39,8 @@ void AFirstPersonCharacter::BeginPlay()
 void AFirstPersonCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	MaxSpeed = BaseSpeed * StatsManager->GetStatValue(EPlayerStat::MovementSpeed);
 
 	if (AttackHeld)
 	{
@@ -97,12 +100,12 @@ void AFirstPersonCharacter::LookUp(float val)
 
 void AFirstPersonCharacter::SprintOn()
 {
-	MovementComponent->MaxWalkSpeed = forwardSpeed * 2;
+	MovementComponent->MaxWalkSpeed = MaxSpeed * 2;
 }
 
 void AFirstPersonCharacter::SprintOff()
 {
-	MovementComponent->MaxWalkSpeed = forwardSpeed;
+	MovementComponent->MaxWalkSpeed = MaxSpeed;
 }
 
 void AFirstPersonCharacter::AttackOn()

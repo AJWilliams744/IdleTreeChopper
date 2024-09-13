@@ -33,6 +33,7 @@ public:
 	UPROPERTY(EditAnywhere)
 	class UBoxComponent* Box;
 
+	UPROPERTY()
 	class UPopup* Popup;
 
 	virtual void Interact(AFirstPersonCharacter* Character) override;

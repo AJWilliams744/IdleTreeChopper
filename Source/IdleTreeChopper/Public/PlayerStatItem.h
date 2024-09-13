@@ -22,7 +22,10 @@ protected:
 	virtual void NativeConstruct() override;
 
 private:
+	UPROPERTY()
 	UPlayerStatsManager* StatsManager;
+
+	UPROPERTY()
 	UInventoryManager* InventoryManager;
 	int Price;
 
