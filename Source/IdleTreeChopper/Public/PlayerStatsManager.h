@@ -16,6 +16,13 @@ class IDLETREECHOPPER_API UPlayerStatsManager : public UObject
 
 public:
 	FPlayerStatsStructure PlayerStats;
-	float GetValue(EPlayerStat PlayerStat);
+	FPlayerStatsStructure PurchaseNumbers;
+	float GetStatValue(EPlayerStat PlayerStat);
+	float GetPurchaseNumber(EPlayerStat PlayerStat);
 	static FString GetName(const EPlayerStat PlayerStat);
+	void AddStatValue(EPlayerStat PlayerStat, float Value);
+
+private:
+	static float GetValue(EPlayerStat PlayerStat, const FPlayerStatsStructure& PlayerStats);
+	static void AddValue(EPlayerStat PlayerStat, FPlayerStatsStructure& PlayerStats, float Value);
 };

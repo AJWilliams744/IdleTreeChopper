@@ -22,8 +22,6 @@ public:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	class UPlayerStatItem* MovementSpeed;
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	class UPlayerStatItem* AttackSpeed;
-	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	class UPlayerStatItem* AttackDamage;
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	class UPlayerStatItem* MoneyMultiplier;

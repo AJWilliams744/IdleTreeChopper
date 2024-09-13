@@ -16,9 +16,6 @@ struct FPlayerStatsStructure
 	float MovementSpeed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float AttackSpeed;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float AttackDamage;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -33,7 +30,6 @@ struct FPlayerStatsStructure
 	FPlayerStatsStructure()
 	{
 		MovementSpeed = 1;
-		AttackSpeed = 1;
 		AttackDamage = 1;
 		MoneyMultiplier = 1;
 		StorageMultiplier = 1;
@@ -45,7 +41,6 @@ UENUM(BlueprintType)
 enum class EPlayerStat : uint8
 {
 	MovementSpeed UMETA(DisplayName="MovementSpeed"),
-	AttackSpeed UMETA(DisplayName="AttackSpeed"),
 	AttackDamage UMETA(DisplayName="AttackDamage"),
 	MoneyMultiplier UMETA(DisplayName="MoneyMultiplier"),
 	StorageMultiplier UMETA(DisplayName="StorageMultiplier"),

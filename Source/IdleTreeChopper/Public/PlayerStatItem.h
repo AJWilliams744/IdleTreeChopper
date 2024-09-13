@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InventoryManager.h"
 #include "PlayerStatsManager.h"
 #include "StatsStruct.h"
 #include "Blueprint/UserWidget.h"
@@ -19,6 +20,11 @@ class IDLETREECHOPPER_API UPlayerStatItem : public UUserWidget
 protected:
 	// Called when the game starts or when spawned
 	virtual void NativeConstruct() override;
+
+private:
+	UPlayerStatsManager* StatsManager;
+	UInventoryManager* InventoryManager;
+	int Price;
 
 public:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
@@ -42,7 +48,10 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EPlayerStat StatType;
 
-	void UpdateData(UPlayerStatsManager* StatsManager);
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+	class UTextBlock* StatIncreaseText;
+
+	void UpdateData(UPlayerStatsManager* StatsManager, UInventoryManager* InventoryManager);
 
 	UFUNCTION()
 	void ButtonClicked();

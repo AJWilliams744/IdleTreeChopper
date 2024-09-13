@@ -23,6 +23,8 @@ void UPlayerStats::NativeConstruct()
 			continue;
 		}
 
-		ShopItem->UpdateData(Cast<AFirstPersonCharacter>(Character)->StatsManager);
+		const AFirstPersonCharacter* Person = Cast<AFirstPersonCharacter>(Character);
+
+		ShopItem->UpdateData(Person->StatsManager, Person->InventoryManager);
 	}
 }
