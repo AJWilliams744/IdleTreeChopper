@@ -5,14 +5,11 @@
 
 #include "PopupManager.h"
 #include "ShopItem.h"
-#include "Components/Button.h"
 #include "Components/UniformGridPanel.h"
 
 void UShopWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
-
-	ExitButton->OnClicked.AddDynamic(this, &UShopWidget::ShopClosed);
 
 	TArray<UWidget*> Children = SellGrid->GetAllChildren();
 
@@ -26,11 +23,6 @@ void UShopWidget::NativeConstruct()
 			continue;
 		}
 
-		ShopItem->UpdateData(Character->InventoryManager);
+		ShopItem->UpdateData(Cast<AFirstPersonCharacter>(Character)->InventoryManager);
 	}
-}
-
-void UShopWidget::ShopClosed()
-{
-	PopupManager::Instance->ClosePopup();
 }

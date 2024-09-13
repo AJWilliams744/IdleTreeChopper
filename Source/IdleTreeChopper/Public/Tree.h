@@ -34,7 +34,7 @@ public:
 	float MaxHealth = 2;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float RespawnRate = 10;
+	float RespawnRate = 150;
 
 	virtual void Hit(AFirstPersonCharacter* Character) override;
 

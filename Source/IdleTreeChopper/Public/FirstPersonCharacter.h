@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "InventoryManager.h"
+#include "PlayerStats.h"
+#include "PlayerStatsManager.h"
 #include "GameFramework/Character.h"
 #include "FirstPersonCharacter.generated.h"
 
@@ -30,7 +32,13 @@ public:
 	UPROPERTY(EditAnywhere, Category="Collision", BlueprintReadWrite)
 	TEnumAsByte<ECollisionChannel> TraceChannelProperty = ECC_Pawn;
 
+	UPROPERTY(EditAnywhere, Category="Stats", BlueprintReadWrite)
+	UPlayerStatsManager* StatsManager;
+
 	UInventoryManager* InventoryManager;
+
+	UPROPERTY(EditAnywhere, Category="Stats", BlueprintReadWrite)
+	class TSubclassOf<UPlayerStats> StatsClass;
 
 protected:
 	UPROPERTY(EditAnywhere)
@@ -51,6 +59,8 @@ protected:
 	void Interact();
 
 	bool RayCastCamera(AActor*& HitActor) const;
+
+	void Inventory();
 
 private:
 	float forwardSpeed;

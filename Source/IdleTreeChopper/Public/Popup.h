@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "FirstPersonCharacter.h"
 #include "Blueprint/UserWidget.h"
 #include "Popup.generated.h"
 
@@ -20,5 +19,12 @@ protected:
 	virtual void NativeConstruct() override;
 
 public:
-	AFirstPersonCharacter* Character;
+	ACharacter* Character;
+
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
+	class UButton* ExitButton;
+
+private:
+	UFUNCTION()
+	void ShopClosed();
 };

@@ -5,12 +5,9 @@
 
 #include "IDamage.h"
 #include "InteractInterface.h"
-#include "MyHUD.h"
-#include "UIWidget.h"
+#include "PopupManager.h"
 #include "Camera/CameraComponent.h"
-#include "Components/TextBlock.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AFirstPersonCharacter::AFirstPersonCharacter()
@@ -33,6 +30,8 @@ void AFirstPersonCharacter::BeginPlay()
 
 	InventoryManager = NewObject<UInventoryManager>();
 	InventoryManager->LoadInventoryDataFromJSON();
+
+	StatsManager = NewObject<UPlayerStatsManager>();
 }
 
 // Called every frame
@@ -61,6 +60,8 @@ void AFirstPersonCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInp
 	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &AFirstPersonCharacter::SprintOn);
 	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &AFirstPersonCharacter::SprintOff);
 	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &AFirstPersonCharacter::Interact);
+
+	PlayerInputComponent->BindAction("Inventory", IE_Pressed, this, &AFirstPersonCharacter::Inventory);
 
 	PlayerInputComponent->BindAction("Attack", IE_Pressed, this, &AFirstPersonCharacter::AttackOn);
 	PlayerInputComponent->BindAction("Attack", IE_Released, this, &AFirstPersonCharacter::AttackOff);
@@ -124,6 +125,11 @@ void AFirstPersonCharacter::Interact()
 			Interact->Interact(this);
 		}
 	}
+}
+
+void AFirstPersonCharacter::Inventory()
+{
+	PopupManager::Instance->ShowPopup(StatsClass);
 }
 
 bool AFirstPersonCharacter::RayCastCamera(AActor*& HitActor) const

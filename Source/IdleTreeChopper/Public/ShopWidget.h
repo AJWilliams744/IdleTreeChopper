@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "Popup.h"
-#include "Blueprint/UserWidget.h"
 #include "ShopWidget.generated.h"
 
 /**
@@ -25,11 +24,4 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
 	class UUniformGridPanel* BuyGrid;
-
-	UPROPERTY(BlueprintReadWrite, meta = (BindWidget))
-	class UButton* ExitButton;
-
-private:
-	UFUNCTION()
-	void ShopClosed();
 };

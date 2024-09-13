@@ -2,7 +2,8 @@
 
 
 #include "Popup.h"
-
+#include "Components/Button.h"
+#include "PopupManager.h"
 #include "Kismet/GameplayStatics.h"
 
 void UPopup::NativeConstruct()
@@ -10,5 +11,12 @@ void UPopup::NativeConstruct()
 	Super::NativeConstruct();
 
 	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-	Character = Cast<AFirstPersonCharacter>(PlayerController->GetCharacter());
+	Character = PlayerController->GetCharacter();
+
+	ExitButton->OnClicked.AddDynamic(this, &UPopup::ShopClosed);
+}
+
+void UPopup::ShopClosed()
+{
+	PopupManager::Instance->ClosePopup();
 }
